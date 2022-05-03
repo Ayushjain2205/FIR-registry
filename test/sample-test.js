@@ -1,36 +1,39 @@
-const { expect } = require("chai")
-const { ethers } = require("hardhat")
+const { expect } = require('chai')
+const { ethers } = require('hardhat')
 
-describe("Blog", async function () {
-  it("Should create a post", async function () {
-    const Blog = await ethers.getContractFactory("Blog")
-    const blog = await Blog.deploy("My blog")
-    await blog.deployed()
-    await blog.createPost("My first post", "12345")
+describe('FIR', async function () {
+  it('Should create a FIR', async function () {
+    const FIR = await ethers.getContractFactory('FIR')
+    const fir = await FIR.deploy('FIR')
+    await fir.deployed()
+    await fir.createComplaint('My first Complaint', '12345')
 
-    const posts = await blog.fetchPosts()
-    expect(posts[0].title).to.equal("My first post")
+    const Complaints = await FIR.fetchComplaints()
+    console.log(Complaints)
+    expect(Complaints[0].title).to.equal('My first Complaint')
   })
 
-  it("Should edit a post", async function () {
-    const Blog = await ethers.getContractFactory("Blog")
-    const blog = await Blog.deploy("My blog")
-    await blog.deployed()
-    await blog.createPost("My Second post", "12345")
-    
-    await blog.updatePost(1, "My updated post", "23456", true)
+  it('Should edit a Complaint', async function () {
+    const FIR = await ethers.getContractFactory('FIR')
+    const FIR = await FIR.deploy('My FIR')
+    await FIR.deployed()
+    await FIR.createComplaint('My Second Complaint', '12345')
 
-    posts = await blog.fetchPosts()
-    expect(posts[0].title).to.equal("My updated post")
+    await FIR.updateComplaint(1, 'My updated Complaint', '23456', true)
+
+    Complaints = await FIR.fetchComplaints()
+    expect(Complaints[0].title).to.equal('My updated Complaint')
+    console.log(Complaints)
   })
 
-  it("Should add update the name", async function () {
-    const Blog = await ethers.getContractFactory("Blog")
-    const blog = await Blog.deploy("My blog")
-    await blog.deployed()
+  it('Should add update the name', async function () {
+    const FIR = await ethers.getContractFactory('FIR')
+    const FIR = await FIR.deploy('My FIR')
+    await FIR.deployed()
 
-    expect(await blog.name()).to.equal("My blog")
-    await blog.updateName('My new blog')
-    expect(await blog.name()).to.equal("My new blog")
+    expect(await FIR.name()).to.equal('My FIR')
+    await FIR.updateName('My new FIR')
+    expect(await FIR.name()).to.equal('My new FIR')
+    console.log(Complaints)
   })
 })
